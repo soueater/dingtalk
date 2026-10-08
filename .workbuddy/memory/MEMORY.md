@@ -67,7 +67,10 @@
   **不是沙箱拦截**。绕法：`git-credential-manager get` 取凭据存临时文件（**查询时不要带 `path`**，带了会触发账号解析并挂起），
   再用 `git -c credential.helper= -c "credential.helper=!f() { cat <临时文件>; }; f" push`，用完立即删临时文件。
   GCM 里存有 `gho_*` 令牌（账号 `soueater`），可直接用。OAuth 交互流程在本 shell 走不通（无真实控制台）。
-- 远程 `origin = https://github.com/soueater/dingtalk.git`，工作分支 `feature/pm-stitch-parity`。
+- 远程 `origin = https://github.com/soueater/dingtalk.git`。
+  - **`master` 是主线**，已含完整代码（PR #1 于 2026-10-08 合并，合并提交 `031d945`）。
+  - 仓库默认分支 = `master`；根目录的占位 README `# dingtalk` 仍在（合并时保留，可随时替换）。
+  - `feature/pm-stitch-parity` 作为交付分支保留，内容与 `master` 一致。
 - **推送后必须复核远程 HEAD**（`git fetch` + `rev-parse` 比对），不要只看退出码 ——
   出现过「退出码 0 但远程 ref 未移动」的假成功；`git-credential-manager get` 在网络抖动时会**静默产出空文件**，
   取凭据后要 `[ -s file ]` 校验并重试。
