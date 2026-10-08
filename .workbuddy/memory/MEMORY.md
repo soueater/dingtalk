@@ -69,7 +69,7 @@
   GCM 里存有 `gho_*` 令牌（账号 `soueater`），可直接用。OAuth 交互流程在本 shell 走不通（无真实控制台）。
 - 远程 `origin = https://github.com/soueater/dingtalk.git`。
   - **`master` 是主线**，已含完整代码（PR #1 于 2026-10-08 合并，合并提交 `031d945`）。
-  - 仓库默认分支 = `master`；根目录的占位 README `# dingtalk` 仍在（合并时保留，可随时替换）。
+  - 仓库默认分支 = `master`；根目录 `README.md` 已重写为正式项目说明（不再是占位 `# dingtalk`）。
   - `feature/pm-stitch-parity` 作为交付分支保留，内容与 `master` 一致。
 - **推送后必须复核远程 HEAD**（`git fetch` + `rev-parse` 比对），不要只看退出码 ——
   出现过「退出码 0 但远程 ref 未移动」的假成功；`git-credential-manager get` 在网络抖动时会**静默产出空文件**，
@@ -102,6 +102,15 @@
   - `shadow`：`xs / sm / md / lg`
 - 节点样式走**内联 `style`**，所以任何要覆盖它的规则（如 `Node.states` 伪类）必须：用 `[data-id="…"]` 锚定 + **逐条 `!important`** + 集中放进 `<style>` 块。
 - 取 TokenMap 的唯一入口是 `tokenMapForPage`（画布/预览/导出/变体四处同源），不要各自 `buildTokenMap`。
+
+## 文档约定
+
+- **根目录 `README.md` 是 GitHub 首页展示内容**，面向外部读者：定位 / 能力 / 目录结构 / 构建设计步骤 / 测试基线 / 版本号规范。
+- 写 README 或文档时，**数字必须从代码实测**，不要照抄旧文档。已踩过的坑：
+  - MCP 工具数是 **13**（不是 14）—— 用 `grep -rhoE "wanshu_[a-z_]+" electron/ src/ shared/ | sort -u | wc -l` 核。
+  - Node 要求 **≥ 22.12** —— 由 `node_modules/vite` 与 `node_modules/electron` 的 `engines` 决定。
+- `test-project` 的**版本号护栏只扫 `docs/*.md`**，不扫根目录 README；但仍应保持一致。
+- `docs/产品使用说明文档.md` §4 第三步仍写「增强以对比视图呈现」—— **已过期**，代码是就地覆盖 + 撤回条（`AiPanel.tsx`）。
 
 ## 交互约定
 
