@@ -68,6 +68,13 @@
   再用 `git -c credential.helper= -c "credential.helper=!f() { cat <临时文件>; }; f" push`，用完立即删临时文件。
   GCM 里存有 `gho_*` 令牌（账号 `soueater`），可直接用。OAuth 交互流程在本 shell 走不通（无真实控制台）。
 - 远程 `origin = https://github.com/soueater/dingtalk.git`，工作分支 `feature/pm-stitch-parity`。
+- **推送后必须复核远程 HEAD**（`git fetch` + `rev-parse` 比对），不要只看退出码 ——
+  出现过「退出码 0 但远程 ref 未移动」的假成功；`git-credential-manager get` 在网络抖动时会**静默产出空文件**，
+  取凭据后要 `[ -s file ]` 校验并重试。
+- **无共同祖先的分支无法开 PR**（`compare` 返回 404 `No common ancestor`）。先用
+  `git merge origin/master --allow-unrelated-histories`（非破坏性，保留远程内容）建好共同祖先再推。
+- GitHub MCP 连接器**无 PR 写权限**（`create_pull_request` → `403 Resource not accessible by integration`），
+  建 PR 需用 GCM 令牌走 REST API `POST /repos/{owner}/{repo}/pulls`。
 
 ## 版本号约定
 
