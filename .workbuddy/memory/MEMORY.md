@@ -53,6 +53,17 @@
 - **纯逻辑层与 IO 层分离**：可离线测的逻辑放纯函数文件（不 import store/react/electron），需要网络的单独一个文件。这是本项目一贯体例。
 - 涉及「窗口/进程行为」的结论，**必须有真机实测**（如 `npm run test:close` 用真实 Electron 验证窗口确实关闭），纯函数单测不足以证明。
 
+## 版本控制约定
+
+- 仓库根 = **项目根** `C:/Users/smk/WorkBuddy/stitch`（`app/` 不是独立仓库，不嵌套）。
+- **入库范围**：源码 / 文档 / 分析结论 / 配置 / 图标源与图标产物 / `.workbuddy/memory`。
+- **不入库**：`node_modules/`、`dist/`、`app/out/`、`app/_old_builds/`、`app/package*/`、`app/pkg/`、
+  `app/release*/`、`app/.shots/`、`*.exe`、`*.nsis.7z`、`.env*`。理由：GB 级二进制且可由源码重建。
+- `app/build/icon.{png,ico}` 与 `build/icons/` **必须入库** —— electron-builder 直接依赖，缺了则无法打包。
+- **提交前必查**：`git status` 里是否混入 `node_modules` / `*.exe` / `out/`；提交后核对文件数与总体积
+  （正常量级：**约 200 文件 / 3 MB**；若出现数十 MB 或上千文件，说明忽略规则漏了）。
+- 身份：仓库级 `user.name=smk` / `user.email=smk@localhost`（全局未配置，用户可改；改后首次提交用 `--amend --reset-author`）。
+
 ## 版本号约定
 
 四种版本**互不联动**，详见 `docs/版本号规范.md`：
