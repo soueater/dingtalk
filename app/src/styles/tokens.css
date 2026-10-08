@@ -1,0 +1,320 @@
+/* src/styles/tokens.css —— 应用自身 UI 的设计 Token（多主题）
+   严格对应 docs/S2-3-组件体系与设计Token.md 的「应用自身 UI Token」章节。
+
+   结构约定：
+   1) `:root`        —— 主题无关的结构性 Token（间距/圆角/字体/动效/层级）
+   2) `[data-theme=]` —— 各主题的**颜色** Token 覆盖
+   3) 主题切换由 theme.store 写在 <html data-theme="..."> 上，即时生效
+
+   新增主题只需追加一个 `[data-theme="xxx"]` 块并补齐同名变量，
+   其余样式文件一律只引用变量、不写死颜色，因此无需改动别处。 */
+
+/* =====================================================================
+   主题无关：结构性 Token
+   ===================================================================== */
+:root {
+  /* ------- 间距：4 的倍数 ------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+
+  /* ------- 圆角 ------- */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-full: 999px;
+
+  /* ------- 字体 ------- */
+  --font-ui: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", -apple-system,
+    BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --font-mono: "Cascadia Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+
+  --lh-tight: 1.25;
+  --lh-normal: 1.5;
+  --lh-loose: 1.7;
+
+  /* ------- 尺寸常量（三段式布局） ------- */
+  --h-titlebar: 48px;
+  --w-left: 264px;
+  --w-right: 300px;
+  --h-statusbar: 28px;
+
+  /* ------- 动效：全部 ≤ 250ms ------- */
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 240ms;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ------- 层级 ------- */
+  --z-canvas: 1;
+  --z-overlay: 50;
+  --z-panel: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+
+  /* ------- 阴影：经间接层，使各主题可自定义浓度 ------- */
+  --shadow-sm: 0 1px 2px var(--shadow-color-1);
+  --shadow-md: 0 4px 14px var(--shadow-color-2);
+  --shadow-lg: 0 12px 32px var(--shadow-color-3);
+  --shadow-pop: 0 16px 48px var(--shadow-color-4);
+}
+
+/* =====================================================================
+   主题一 · 夜阑（深色 · 默认）
+   ===================================================================== */
+:root,
+[data-theme='night'] {
+  color-scheme: dark;
+
+  --shadow-color-1: rgba(0, 0, 0, 0.35);
+  --shadow-color-2: rgba(0, 0, 0, 0.4);
+  --shadow-color-3: rgba(0, 0, 0, 0.5);
+  --shadow-color-4: rgba(0, 0, 0, 0.6);
+
+  /* 表面层级：越靠近内容越亮 */
+  --app-bg: #0f1115;
+  --surface-1: #15181e;
+  --surface-2: #1a1e26;
+  --surface-3: #20252f;
+  --surface-hover: #242a35;
+  --surface-active: #2b323f;
+  --canvas-bg: #0a0c10;
+
+  --border-subtle: #232833;
+  --border: #2b313d;
+  --border-strong: #3a4250;
+  --border-focus: #4c8dff;
+
+  --text-1: #e8ecf2;
+  --text-2: #9aa4b2;
+  --text-3: #6b7583;
+  --text-disabled: #4a525f;
+  --text-inverse: #0f1115;
+
+  --brand: #4c8dff;
+  --brand-hover: #6ba0ff;
+  --brand-active: #3a7ae8;
+  --brand-2: #8b5cf6;
+  --brand-soft: rgba(76, 141, 255, 0.14);
+  --brand-ring: rgba(76, 141, 255, 0.35);
+  --brand-text: #a9c6ff;
+
+  --success: #38d39f;
+  --success-soft: rgba(56, 211, 159, 0.14);
+  --success-text: #86e8c4;
+  --success-border: rgba(56, 211, 159, 0.3);
+
+  --warning: #f5a524;
+  --warning-soft: rgba(245, 165, 36, 0.14);
+  --warning-text: #f6cc82;
+  --warning-border: rgba(245, 165, 36, 0.3);
+
+  --danger: #f5566e;
+  --danger-hover: #ff7288;
+  --danger-soft: rgba(245, 86, 110, 0.14);
+  --danger-text: #f8a4b2;
+  --danger-border: rgba(245, 86, 110, 0.32);
+
+  --on-brand: #ffffff;
+  --page-paper: #ffffff;
+  --canvas-dot: rgba(255, 255, 255, 0.05);
+  --scrim: rgba(4, 6, 10, 0.62);
+  --handle-bg: #ffffff;
+}
+
+/* =====================================================================
+   主题二 · 晨光（浅色）
+   ===================================================================== */
+[data-theme='dawn'] {
+  color-scheme: light;
+
+  --shadow-color-1: rgba(24, 36, 54, 0.06);
+  --shadow-color-2: rgba(24, 36, 54, 0.1);
+  --shadow-color-3: rgba(24, 36, 54, 0.14);
+  --shadow-color-4: rgba(24, 36, 54, 0.18);
+
+  --app-bg: #f4f6f9;
+  --surface-1: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #eef2f7;
+  --surface-hover: #e8eef6;
+  --surface-active: #dbe5f2;
+  --canvas-bg: #e7ebf1;
+
+  --border-subtle: #e5e9f0;
+  --border: #d2d9e3;
+  --border-strong: #b6c0cf;
+  --border-focus: #2f6fed;
+
+  --text-1: #17212f;
+  --text-2: #56637a;
+  --text-3: #8794a6;
+  --text-disabled: #b4bdc9;
+  --text-inverse: #ffffff;
+
+  --brand: #2f6fed;
+  --brand-hover: #4a83f0;
+  --brand-active: #2559c9;
+  --brand-2: #7c5cd6;
+  --brand-soft: rgba(47, 111, 237, 0.1);
+  --brand-ring: rgba(47, 111, 237, 0.3);
+  --brand-text: #1f56c9;
+
+  --success: #12a06a;
+  --success-soft: rgba(18, 160, 106, 0.1);
+  --success-text: #0b7a50;
+  --success-border: rgba(18, 160, 106, 0.28);
+
+  --warning: #c47f10;
+  --warning-soft: rgba(196, 127, 16, 0.12);
+  --warning-text: #9a6409;
+  --warning-border: rgba(196, 127, 16, 0.28);
+
+  --danger: #d93a52;
+  --danger-hover: #e4526a;
+  --danger-soft: rgba(217, 58, 82, 0.1);
+  --danger-text: #b32a41;
+  --danger-border: rgba(217, 58, 82, 0.28);
+
+  --on-brand: #ffffff;
+  --page-paper: #ffffff;
+  --canvas-dot: rgba(23, 33, 47, 0.07);
+  --scrim: rgba(23, 33, 47, 0.4);
+  --handle-bg: #ffffff;
+}
+
+/* =====================================================================
+   主题三 · 沧海（蓝调深色）
+   ===================================================================== */
+[data-theme='ocean'] {
+  color-scheme: dark;
+
+  --shadow-color-1: rgba(0, 0, 0, 0.36);
+  --shadow-color-2: rgba(0, 0, 0, 0.42);
+  --shadow-color-3: rgba(0, 0, 0, 0.52);
+  --shadow-color-4: rgba(0, 0, 0, 0.62);
+
+  --app-bg: #0a1018;
+  --surface-1: #101825;
+  --surface-2: #141e2d;
+  --surface-3: #1a2637;
+  --surface-hover: #1e2c40;
+  --surface-active: #253549;
+  --canvas-bg: #070c13;
+
+  --border-subtle: #1c2939;
+  --border: #24344a;
+  --border-strong: #33475f;
+  --border-focus: #35b8d8;
+
+  --text-1: #e3eef6;
+  --text-2: #93a8bb;
+  --text-3: #647a8e;
+  --text-disabled: #47596b;
+  --text-inverse: #08111a;
+
+  --brand: #35b8d8;
+  --brand-hover: #55cbe8;
+  --brand-active: #2497b6;
+  --brand-2: #5b8def;
+  --brand-soft: rgba(53, 184, 216, 0.15);
+  --brand-ring: rgba(53, 184, 216, 0.38);
+  --brand-text: #8ed8ea;
+
+  --success: #2ecfa0;
+  --success-soft: rgba(46, 207, 160, 0.15);
+  --success-text: #7fe3c4;
+  --success-border: rgba(46, 207, 160, 0.32);
+
+  --warning: #f0a72a;
+  --warning-soft: rgba(240, 167, 42, 0.15);
+  --warning-text: #f4ce8a;
+  --warning-border: rgba(240, 167, 42, 0.32);
+
+  --danger: #f2556d;
+  --danger-hover: #ff7189;
+  --danger-soft: rgba(242, 85, 109, 0.15);
+  --danger-text: #f8a3b2;
+  --danger-border: rgba(242, 85, 109, 0.34);
+
+  --on-brand: #06131a;
+  --page-paper: #ffffff;
+  --canvas-dot: rgba(255, 255, 255, 0.05);
+  --scrim: rgba(3, 8, 14, 0.66);
+  --handle-bg: #ffffff;
+}
+
+/* =====================================================================
+   主题四 · 墨韵（浅色 · 紫调）
+   ===================================================================== */
+[data-theme='ink'] {
+  color-scheme: light;
+
+  --shadow-color-1: rgba(40, 32, 60, 0.06);
+  --shadow-color-2: rgba(40, 32, 60, 0.1);
+  --shadow-color-3: rgba(40, 32, 60, 0.14);
+  --shadow-color-4: rgba(40, 32, 60, 0.18);
+
+  --app-bg: #f5f4f8;
+  --surface-1: #ffffff;
+  --surface-2: #faf9fc;
+  --surface-3: #f0eef6;
+  --surface-hover: #e9e6f2;
+  --surface-active: #ded9ec;
+  --canvas-bg: #eae7f1;
+
+  --border-subtle: #e8e5f0;
+  --border: #d6d1e3;
+  --border-strong: #bcb4d0;
+  --border-focus: #6b5b95;
+
+  --text-1: #241f33;
+  --text-2: #5f5877;
+  --text-3: #8d87a3;
+  --text-disabled: #b8b2c7;
+  --text-inverse: #ffffff;
+
+  --brand: #6b5b95;
+  --brand-hover: #7f6fac;
+  --brand-active: #574a7c;
+  --brand-2: #a2597f;
+  --brand-soft: rgba(107, 91, 149, 0.12);
+  --brand-ring: rgba(107, 91, 149, 0.32);
+  --brand-text: #55477e;
+
+  --success: #1a9c78;
+  --success-soft: rgba(26, 156, 120, 0.12);
+  --success-text: #0f7458;
+  --success-border: rgba(26, 156, 120, 0.28);
+
+  --warning: #b8801a;
+  --warning-soft: rgba(184, 128, 26, 0.13);
+  --warning-text: #8f6211;
+  --warning-border: rgba(184, 128, 26, 0.28);
+
+  --danger: #cc3f5c;
+  --danger-hover: #d9576f;
+  --danger-soft: rgba(204, 63, 92, 0.11);
+  --danger-text: #a72b46;
+  --danger-border: rgba(204, 63, 92, 0.28);
+
+  --on-brand: #ffffff;
+  --page-paper: #ffffff;
+  --canvas-dot: rgba(36, 31, 51, 0.07);
+  --scrim: rgba(36, 31, 51, 0.4);
+  --handle-bg: #ffffff;
+}
