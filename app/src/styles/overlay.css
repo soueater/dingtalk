@@ -1,0 +1,404 @@
+/* src/styles/overlay.css —— 模态 / Toast / 配置面板 */
+
+.mask {
+  position: fixed;
+  inset: 0;
+  background: var(--scrim);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  z-index: var(--z-modal);
+  animation: fade-in var(--dur-base) var(--ease-out);
+  padding: var(--sp-6);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-pop);
+  animation: pop-in var(--dur-base) var(--ease-out);
+  overflow: hidden;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--border-subtle);
+  flex: 0 0 auto;
+}
+.modal-head .title {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--text-1);
+}
+.modal-head .subtitle {
+  font-size: var(--fs-12);
+  color: var(--text-3);
+}
+.modal-head .flex-1 {
+  flex: 1;
+}
+.modal-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--sp-5);
+}
+.modal-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border-top: 1px solid var(--border-subtle);
+  flex: 0 0 auto;
+  background: var(--surface-2);
+}
+.modal-foot .flex-1 {
+  flex: 1;
+}
+
+/* 模态内分栏（配置面板：左列表 + 右表单） */
+.modal-cols {
+  display: flex;
+  min-height: 0;
+  height: 100%;
+}
+.modal-col-aside {
+  width: 220px;
+  flex: 0 0 auto;
+  border-right: 1px solid var(--border-subtle);
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.modal-col-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.modal-col-main .scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--sp-5);
+}
+
+/* ============================ Toast ============================ */
+.toast-host {
+  position: fixed;
+  top: calc(var(--h-titlebar) + var(--sp-3));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  z-index: var(--z-toast);
+  pointer-events: none;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  max-width: 520px;
+  padding: 9px var(--sp-4);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-3);
+  box-shadow: var(--shadow-md);
+  font-size: var(--fs-12);
+  color: var(--text-1);
+  animation: slide-up var(--dur-slow) var(--ease-out);
+  pointer-events: auto;
+}
+.toast .ico {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand);
+  flex: 0 0 auto;
+}
+.toast.success {
+  border-color: var(--success-border);
+}
+.toast.success .ico {
+  background: var(--success);
+}
+.toast.warn {
+  border-color: var(--warning-border);
+}
+.toast.warn .ico {
+  background: var(--warning);
+}
+.toast.error {
+  border-color: var(--danger-border);
+}
+.toast.error .ico {
+  background: var(--danger);
+}
+.toast .msg {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* ============================ 引导步骤 ============================ */
+.steps {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-5);
+}
+.step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-11);
+  color: var(--text-3);
+}
+.step .n {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface-3);
+  color: var(--text-3);
+  font-size: 10px;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+.step.active {
+  color: var(--text-1);
+}
+.step.active .n {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.step.done .n {
+  background: var(--success-soft);
+  color: var(--success);
+}
+/* 步骤文字：主标签 + 副说明两行，让"当前该做什么"一眼可读 */
+.step-txt {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.step-txt > b {
+  font-weight: 600;
+}
+.step-txt > em {
+  font-style: normal;
+  font-size: 10px;
+  color: var(--text-3);
+}
+.step.active .step-txt > em {
+  color: var(--text-2);
+}
+.step-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  min-width: 12px;
+}
+
+/* 引导卡片 */
+.guide-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  background: var(--surface-2);
+}
+.guide-card h4 {
+  margin: 0 0 6px;
+  font-size: var(--fs-13);
+  color: var(--text-1);
+}
+.guide-card p {
+  margin: 0;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+  line-height: var(--lh-loose);
+}
+.guide-card ol,
+.guide-card ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: var(--fs-12);
+  color: var(--text-2);
+  line-height: var(--lh-loose);
+}
+.guide-card code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  background: var(--app-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  padding: 1px 5px;
+  color: var(--brand-text);
+}
+/* 注意事项：与上方步骤列表区分开的弱提示块 */
+.guide-notes {
+  margin: 8px 0 0 !important;
+  padding: 8px 8px 8px 26px !important;
+  border-radius: var(--r-md);
+  background: var(--warning-soft);
+  color: var(--warning-text) !important;
+  list-style: disc;
+  font-size: var(--fs-11) !important;
+  line-height: var(--lh-normal) !important;
+}
+/* 底部外链 */
+.guide-links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3) !important;
+  font-size: var(--fs-11);
+}
+.guide-links a {
+  color: var(--brand-text);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--brand-ring);
+  padding-bottom: 1px;
+}
+.guide-links a:hover {
+  color: var(--brand-hover);
+  border-bottom-style: solid;
+}
+.guide-links span {
+  color: var(--text-3);
+}
+
+/* 状态点（配置面板脚注等处的极小圆点） */
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-3);
+  flex: 0 0 auto;
+}
+.dot-ok {
+  background: var(--success);
+}
+.dot-warn {
+  background: var(--warning);
+}
+.dot-err {
+  background: var(--danger);
+}
+
+/* ============================ 预览页 ============================ */
+/* 与画布 .page-render 同语义：为渲染出的节点提供定位上下文并裁掉溢出 */
+.preview-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ============================ 进度 ============================ */
+.progress {
+  height: 4px;
+  border-radius: var(--r-full);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.progress > i {
+  display: block;
+  height: 100%;
+  background: var(--brand);
+  border-radius: var(--r-full);
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+/* ================= 方案分支（F-PM-07） ================= */
+.br-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.br-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.br-item:hover {
+  border-color: var(--border-strong);
+}
+
+.br-item.adopted {
+  border-color: var(--brand);
+  background: linear-gradient(120deg, var(--brand-soft), transparent 70%), var(--surface-2);
+}
+
+.br-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.br-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.br-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 6px;
+  border-radius: var(--r-full);
+  background: var(--brand);
+  color: var(--on-brand);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.br-meta {
+  color: var(--text-2);
+  font-size: var(--fs-12);
+  font-variant-numeric: tabular-nums;
+}
+
+.br-aspect {
+  color: var(--brand-text);
+  font-size: var(--fs-12);
+}
+
+.br-time {
+  color: var(--text-3);
+  font-size: var(--fs-11);
+}
+
+.br-ops {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}

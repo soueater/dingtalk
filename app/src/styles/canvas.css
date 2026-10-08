@@ -1,0 +1,280 @@
+/* src/styles/canvas.css —— 渲染节点的运行时样式（画布 / 预览 / 导出 HTML 共用）
+   注意：本文件通过 `?raw` 内联进导出的 HTML，因此必须自包含，不能依赖应用层的其它样式表。 */
+
+:root {
+  --font-ui: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", -apple-system, BlinkMacSystemFont,
+    "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+
+.n {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.page-root {
+  box-sizing: border-box;
+  font-family: var(--font-ui);
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ---------------- 文本 ---------------- */
+.n-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ---------------- 输入 ---------------- */
+.n-input,
+.n-textarea,
+.n-select {
+  color: inherit;
+}
+.n-input .ph-txt,
+.n-textarea .ph-txt,
+.n-select .ph-txt {
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.n-select .caret {
+  flex: 0 0 auto;
+  opacity: 0.5;
+}
+
+/* ---------------- 分隔线 ---------------- */
+.n-divider {
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* ---------------- 开关 / 勾选 ---------------- */
+.n-switch {
+  position: relative;
+  background: #3b82f6;
+}
+.n-switch .knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  display: block;
+}
+.n-checkbox {
+  background: #3b82f6;
+  color: #fff;
+}
+.n-radio {
+  background: #3b82f6;
+}
+.n-radio .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  display: block;
+}
+
+/* ---------------- 进度 ---------------- */
+.n-progress {
+  background: #e5e7eb;
+}
+.n-progress > i {
+  display: block;
+  height: 100%;
+  background: #3b82f6;
+}
+
+/* ---------------- 滑块 ---------------- */
+.n-slider {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+}
+.n-slider .track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+.n-slider .knob {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------------- 头像 ---------------- */
+.n-avatar {
+  background: #e5e7eb;
+  color: #6b7280;
+  overflow: hidden;
+}
+
+/* ---------------- 标签 ---------------- */
+.n-badge,
+.n-tag,
+.n-chip {
+  white-space: nowrap;
+}
+
+/* ---------------- 导航类 ---------------- */
+.n-navbar {
+  font-weight: 600;
+  font-size: 17px;
+}
+.n-tabbar {
+  font-size: 12px;
+}
+.n-tabbar span {
+  color: #9ca3af;
+}
+.n-tabbar span.on {
+  color: #3b82f6;
+}
+.n-sidebar {
+  font-size: 14px;
+}
+.n-sidebar span {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #9ca3af;
+}
+.n-sidebar span.on {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+.n-breadcrumb {
+  font-size: 13px;
+  color: #6b7280;
+}
+.n-breadcrumb em {
+  font-style: normal;
+  opacity: 0.5;
+  margin: 0 2px;
+}
+.n-pagination {
+  font-size: 12px;
+}
+.n-pagination span {
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+.n-pagination span.on {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+.n-stepper {
+  font-size: 12px;
+  color: #6b7280;
+}
+.n-stepper span.on {
+  color: #3b82f6;
+  font-weight: 600;
+}
+.n-searchbar {
+  color: #9ca3af;
+}
+.n-searchbar .ph-txt {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------------- 占位图形 ---------------- */
+.ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+.ph-image,
+.ph-icon,
+.ph-map {
+  background: repeating-linear-gradient(45deg, #f3f4f6 0 8px, #eceef1 8px 16px);
+}
+.ph-chart {
+  position: relative;
+  align-items: flex-end;
+  padding: 12px 10px 10px;
+}
+.ph-chart > i {
+  position: absolute;
+  bottom: 8px;
+  background: linear-gradient(180deg, #93b8fd, #3b82f6);
+  border-radius: 3px 3px 0 0;
+  display: block;
+  opacity: 0.9;
+}
+.ph-avatar {
+  background: #e5e7eb;
+}
+.ph-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-content: start;
+  padding: 10px;
+  gap: 4px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+.ph-cal span {
+  text-align: center;
+  padding: 4px 0;
+  background: #f9fafb;
+  border-radius: 4px;
+}
+.ph-skel {
+  width: 100%;
+  padding: 12px;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.ph-skel i {
+  height: 10px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #eef0f3 25%, #e2e5ea 37%, #eef0f3 63%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s linear infinite;
+  display: block;
+}
+.ph-skel i:nth-child(2) {
+  width: 70%;
+}
+.ph-skel i:nth-child(3) {
+  width: 40%;
+}
+.ph-empty span {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* 默认边框兜底：未显式设置描边的容器不画边框 */
+.n-frame,
+.n-group {
+  box-sizing: border-box;
+}

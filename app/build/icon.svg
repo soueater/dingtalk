@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 望舒 · 应用图标（设计源）
+       几何与 scripts/make-icons.py 保持一致：改这里务必同步改脚本再重跑。
+       含义：夜色的圆角画板 + 新月（望舒为月御）+ 星芒（灵感）。
+       本 SVG 描述的是「标准档」（≥64px）。16/24/32/48px 由脚本按档位自动简化
+       （关柔光、放大或省略星芒），因为 16px 下白月压浅蓝底只有 2.4:1 对比度。 -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7FB2FF"/>
+      <stop offset="0.48" stop-color="#4C8DFF"/>
+      <stop offset="1" stop-color="#8858F6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.30" cy="0.235" r="0.82">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="crescent">
+      <circle cx="244.7" cy="262.1" r="121.9" fill="#FFFFFF"/>
+      <circle cx="310.3" cy="214.0" r="106.5" fill="#000000"/>
+    </mask>
+    <clipPath id="tileClip">
+      <rect x="0" y="0" width="512" height="512" rx="114.1"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#tileClip)">
+    <rect width="512" height="512" fill="url(#tile)"/>
+    <rect width="512" height="512" fill="url(#glow)"/>
+    <rect width="512" height="512" fill="#FFFFFF" mask="url(#crescent)"/>
+    <polygon
+      points="361.5,131.6 367.2,159.2 394.8,164.9 367.2,170.5 361.5,198.2 355.8,170.5 328.2,164.9 355.8,159.2"
+      fill="#FFFFFF"/>
+  </g>
+</svg>

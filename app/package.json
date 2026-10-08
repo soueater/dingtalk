@@ -1,0 +1,91 @@
+{
+  "name": "design-assistant",
+  "version": "1.1.0",
+  "description": "本地客户端「望舒」——AI 生成原型 · 实时可视化编辑 · 多格式导出",
+  "author": "望舒",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/electron/main/index.js",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build:electron": "node scripts/build-electron.mjs",
+    "prebuild:renderer": "node scripts/clean-renderer.mjs",
+    "build:renderer": "vite build",
+    "build": "npm run typecheck && npm run build:electron && npm run build:renderer",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "icons": "python scripts/make-icons.py",
+    "icons:verify": "python scripts/verify-exe-icons.py out/artifacts",
+    "test": "node scripts/test-enhancer.mjs",
+    "test:parse": "node scripts/test-parse.mjs",
+    "test:pipeline": "node scripts/test-pipeline.mjs",
+    "test:editor": "node scripts/test-editor.mjs",
+    "test:export": "node scripts/test-export.mjs",
+    "test:specs": "node scripts/test-specs.mjs",
+    "test:defects": "node scripts/test-defects.mjs",
+    "test:optimize": "node scripts/test-optimize.mjs",
+    "test:autofill": "node scripts/test-autofill.mjs",
+    "test:style": "node scripts/test-style-extract.mjs",
+    "test:project": "node scripts/test-project-model.mjs",
+    "test:close": "npm run build:electron && node scripts/probe-close.mjs",
+    "test:all": "npm run test && npm run test:parse && npm run test:pipeline && npm run test:editor && npm run test:export && npm run test:specs && npm run test:defects && npm run test:optimize && npm run test:autofill && npm run test:style && npm run test:project",
+    "verify": "npm run typecheck && npm run test:all && npm run build",
+    "smoke": "node scripts/smoke.mjs",
+    "shot": "node scripts/shot.mjs",
+    "preview:app": "npm run build && electron .",
+    "dist": "npm run build && electron-builder --win",
+    "dist:portable": "npm run build && electron-builder --win portable"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^5.2.0",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.25.11",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6",
+    "zustand": "^5.0.15"
+  },
+  "build": {
+    "appId": "com.local.designassistant",
+    "productName": "望舒",
+    "directories": {
+      "output": "out/artifacts",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "望舒",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    },
+    "compression": "normal"
+  }
+}
